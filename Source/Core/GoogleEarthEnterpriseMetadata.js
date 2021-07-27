@@ -1,4 +1,5 @@
-import protobufMinimal from "../ThirdParty/protobuf-minimal.js";
+// import protobuf from "../../node_modules/protobufjs/dist/minimal/protobuf.js";
+import protobuf from "../ThirdPartyNpm/protobufjs.js";
 import when from "../ThirdPartyNpm/when.js";
 import buildModuleUrl from "./buildModuleUrl.js";
 import Check from "./Check.js";
@@ -513,7 +514,7 @@ function requestDbRoot(that) {
     var url = buildModuleUrl("ThirdParty/google-earth-dbroot-parser.js");
     var oldValue = window.cesiumGoogleEarthDbRootParser;
     dbrootParserPromise = loadAndExecuteScript(url).then(function () {
-      dbrootParser = window.cesiumGoogleEarthDbRootParser(protobufMinimal);
+      dbrootParser = window.cesiumGoogleEarthDbRootParser(protobuf);
       if (defined(oldValue)) {
         window.cesiumGoogleEarthDbRootParser = oldValue;
       } else {
