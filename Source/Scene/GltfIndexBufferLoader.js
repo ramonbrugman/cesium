@@ -281,6 +281,7 @@ GltfIndexBufferLoader.prototype.process = function (frameState) {
     this._dracoLoader.process(frameState);
   }
 
+  // TODO: wait on the buffer view in a more generic way
   if (this._bufferViewLoader._hasMeshopt) {
     this._bufferViewLoader.process(frameState);
   }

@@ -248,10 +248,9 @@ ResourceCacheKey.getBufferViewCacheKey = function (options) {
   var bufferView = gltf.bufferViews[bufferViewId];
   var bufferId = bufferView.buffer;
   var buffer = gltf.buffers[bufferId];
-  if (hasExtension(gltf.bufferViews[bufferViewId], "EXT_meshopt_compression")) {
-    bufferId =
-      gltf.bufferViews[bufferViewId].extensions["EXT_meshopt_compression"]
-        .buffer;
+  if (hasExtension(bufferView, "EXT_meshopt_compression")) {
+    var meshopt = bufferView.extensions["EXT_meshopt_compression"];
+    bufferId = meshopt.buffer;
   }
 
   var bufferCacheKey = getBufferCacheKey(

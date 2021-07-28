@@ -317,7 +317,6 @@ function handleError(vertexBufferLoader, error) {
 function CreateVertexBufferJob() {
   this.typedArray = undefined;
   this.context = undefined;
-  this.semantic = undefined;
   this.dequantize = undefined;
   this.componentType = undefined;
   this.type = undefined;
@@ -327,14 +326,12 @@ function CreateVertexBufferJob() {
 CreateVertexBufferJob.prototype.set = function (
   typedArray,
   context,
-  semantic,
   dequantize,
   componentType,
   type,
   count
 ) {
   this.typedArray = typedArray;
-  this.semantic = semantic;
   this.dequantize = dequantize;
   this.componentType = componentType;
   this.type = type;
@@ -348,7 +345,8 @@ CreateVertexBufferJob.prototype.execute = function () {
     result = AttributeCompression.dequantize(
       this.componentType,
       this.type,
-      this.typedArray
+      this.typedArray,
+      this.count
     );
   }
 
@@ -382,6 +380,7 @@ GltfVertexBufferLoader.prototype.process = function (frameState) {
     this._dracoLoader.process(frameState);
   }
 
+  // TODO: wait on the buffer view in a more generic way
   if (this._bufferViewLoader._hasMeshopt) {
     this._bufferViewLoader.process(frameState);
   }
@@ -404,7 +403,6 @@ GltfVertexBufferLoader.prototype.process = function (frameState) {
     vertexBufferJob.set(
       this._typedArray,
       frameState.context,
-      this._dracoAttributeSemantic,
       this._dequantize,
       accessor.componentType,
       accessor.type,

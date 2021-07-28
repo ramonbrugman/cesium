@@ -482,7 +482,8 @@ function loadVertexAttribute(loader, gltf, accessorId, gltfSemantic, draco) {
     gltf,
     accessorId,
     gltfSemantic,
-    draco
+    draco,
+    false
   );
   vertexBufferLoader.promise.then(function (vertexBufferLoader) {
     if (loader.isDestroyed()) {
